@@ -21,6 +21,6 @@ namespace Business.Abstract
         IResult Delete(Product product);
         IDataResult<Product> GetById(int productId);
 
-
+        // RESTFULL --> HTTP --> TCP
     }
 }
