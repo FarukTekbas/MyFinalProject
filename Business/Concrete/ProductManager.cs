@@ -23,6 +23,13 @@ namespace Business.Concrete
 
         public IResult Add(Product product)
         {
+            //business code
+            //validation code nesnenin doğruluğunun kontrol edildiği yer
+            if (product.UnitPrice<=0)
+            {
+                return new ErrorResult(Messages.UnitPriceInvalid);
+            }
+
             if (product.ProductName.Length < 2)
             {
                 // magic string
