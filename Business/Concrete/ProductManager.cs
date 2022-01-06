@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,20 +25,13 @@ namespace Business.Concrete
 
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             //business code
             //validation code nesnenin doğruluğunun kontrol edildiği yer
-            if (product.UnitPrice<=0)
-            {
-                return new ErrorResult(Messages.UnitPriceInvalid);
-            }
+            
 
-            if (product.ProductName.Length < 2)
-            {
-                // magic string
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
             _productDal.Add(product);
             return new Result(true, Messages.ProductAdded);
         }
