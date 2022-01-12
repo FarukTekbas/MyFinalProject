@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -28,7 +29,11 @@ namespace Business.Concrete
         }
 
         // validation code nesnenin doğruluğunun kontrol edildiği yer
-        //[ValidationAspect(typeof(ProductValidator))]
+        // Claim-->yetki
+        // salt kullanıcının girdiği parolayı güçlendirme
+        // Encript şifreleme decript çözme
+        [SecuredOperation("product.add,admin")]
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             // validation, log ,cache, Transaction,Auth ---> CrossCuttingConcern
